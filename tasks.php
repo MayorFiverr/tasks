@@ -2,12 +2,12 @@
 header("Content-Type: application/json");
 $conn = new mysqli("localhost", "root", "", "task_manager");
 
-// Check connection
+// To Check connection
 if ($conn->connect_error) {
     die(json_encode(["error" => "Database connection failed."]));
 }
 
-// Handle request method
+// To Handle request method
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === "GET") {
@@ -26,7 +26,7 @@ if ($method === "GET") {
     echo json_encode($result->fetch_all(MYSQLI_ASSOC));
 
 } elseif ($method === "POST") {
-    // Validate JSON input
+    // Validating the JSON input
     $data = json_decode(file_get_contents("php://input"), true);
     if (!isset($data["title"]) || !isset($data["description"]) || !isset($data["due_date"])) {
         echo json_encode(["error" => "All fields are required."]);
@@ -43,7 +43,7 @@ if ($method === "GET") {
     }
 
 } elseif ($method === "PUT") {
-    // Validate status update
+    // To Validate data status
     parse_str(file_get_contents("php://input"), $data);
     if (!isset($data["status"]) || !isset($_GET["id"])) {
         echo json_encode(["error" => "Invalid request."]);
@@ -60,7 +60,7 @@ if ($method === "GET") {
     }
 
 } elseif ($method === "DELETE") {
-    // Delete task
+    // To Delete task
     if (!isset($_GET["id"])) {
         echo json_encode(["error" => "Task ID is required."]);
         exit;
@@ -71,9 +71,9 @@ if ($method === "GET") {
     if ($stmt->execute()) {
         echo json_encode(["message" => "Task deleted."]);
     } else {
-        echo json_encode(["error" => "Failed to delete task."]);
+        echo json_encode(["error" => "Error in deleting Task."]);
     }
 } else {
-    echo json_encode(["error" => "Invalid request method."]);
+    echo json_encode(["error" => "Invalid requestt."]);
 }
 ?>
