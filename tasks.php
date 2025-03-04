@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json");
-$conn = new mysqli("localhost", "root", "", "task_manager");
+$conn = new mysqli("localhost", "root", "", "my_task");
 
 // To Check connection
 if ($conn->connect_error) {
